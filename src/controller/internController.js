@@ -15,7 +15,7 @@ const getIntership=async function(req,res){
 
 }
 
-//const regex= 
+const regexMobile=  /^(\()?\d{3}(\))?(|\s)?\d{3}(|\s)\d{4}$/
 // const isValid = function(value){
 //     if(typeof value === 'undefined' || value === null) 
 //     {return false }
@@ -53,8 +53,8 @@ const createIntern = async function(req, res){
 
 //-------mobile validation-------------//
 
-let  isValidMobile = function (mobile) { return /^(\()?\d{3}(\))?(|\s)?\d{3}(|\s)\d{4}$/.test(mobile) }
-if(!isValidMobile(mobile)) { return res.status(400).send({status:false, msg: "invalid mobile no."})}
+// let  isValidMobile = function (mobile) { return /^(\()?\d{3}(\))?(|\s)?\d{3}(|\s)\d{4}$/.test(mobile) }
+ if(!regexMobile.test(mobile)) { return res.status(400).send({status:false, msg: "invalid mobile no."})}
 
 let  uniqueMobile = await internModel.findOne({mobile})
 if(uniqueMobile) {return res.status(400).send({status:false, msg: "this number already exist"})}
