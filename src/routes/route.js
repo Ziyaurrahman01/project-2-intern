@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const collegeControler=require('../controller/collegeController')
-const internController=require('../controller/internController')
+const {createCollege} =require('../controller/collegeController')
+const {createIntern, getInternship}=require('../controller/internController')
 
 
 
@@ -9,8 +9,8 @@ const internController=require('../controller/internController')
 
 router.post('/functionup/colleges',createCollege)
 
-router.post('/functionup/interns',internController.createIntern)
+router.post('/functionup/interns', createIntern)
 
-router.get('/functionup/collegeDetails',internController.getIntership)
+router.get('/functionup/collegeDetails', getIntership)
 
 module.exports = router;

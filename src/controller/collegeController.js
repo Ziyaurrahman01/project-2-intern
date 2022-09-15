@@ -23,7 +23,7 @@ const createCollege=async function(req,res){
     return res.status(201).send({status:true,data:saveCollege});
 }
 
-module.exports.createCollege=createCollege;
+module.exports = {createCollege};
 
 
 

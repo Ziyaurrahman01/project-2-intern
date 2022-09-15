@@ -1,5 +1,6 @@
 const collegeModel=require('../model/collegeModel')
 const internModel = require("../model/internModel")
+//----------------------getBlog----------------------------------//
 
 const getIntership=async function(req,res){
     const collegeName=req.query.name
@@ -16,6 +17,7 @@ const getIntership=async function(req,res){
 }
 
 const regexMobile=  /^(\()?\d{3}(\))?(|\s)?\d{3}(|\s)\d{4}$/
+const regexEmail= /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/
 // const isValid = function(value){
 //     if(typeof value === 'undefined' || value === null) 
 //     {return false }
@@ -34,7 +36,7 @@ const createIntern = async function(req, res){
     let { name, mobile, email, collegeId} = data
 
 
-      var isValidData = function(data){
+      let isValidData = function(data){
         return Object.keys(data).length> 0;
       }
 
@@ -62,8 +64,8 @@ if(uniqueMobile) {return res.status(400).send({status:false, msg: "this number a
 
 //-----------email validation----------------//
 
- const validEmail = function (email) { return /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(email) }
-if(!validEmail(email)){ return res.status(401).send({status:false, msg: "invalid email"})}
+ //const validEmail = function (email) { return /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(email) }
+if(!regexEmail.test(email)){ return res.status(401).send({status:false, msg: "invalid email"})}
 
 const uniqueEmail = await internModel.findOne({email})
 if(uniqueEmail){
@@ -79,7 +81,4 @@ const createData = await internModel.create(data)
         res.status(500).send({status:false, msg:err.message })
     }
 }
-module.exports = {createIntern}
-
-
-module.exports.getIntership=getIntership
+module.exports = {createIntern, getInternship}
